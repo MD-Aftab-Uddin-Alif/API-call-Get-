@@ -14,10 +14,17 @@ class DataUtils{
       if(response.statusCode==200){
         var rawData=await response.stream.bytesToString();
         List<dynamic>data=jsonDecode(rawData);
+        data.forEach((element) {
+          UserModel userModel=UserModel.fromJson(element);
+          userData.add(userModel);
+        });
+        return userData;
+      }else{
+        return [];
       }
 
     }catch(e){
-
+      throw e;
     }
   }
 }
